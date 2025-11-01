@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlyStep - 新品上市</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #111;
+            animation: PopUp 1.6s ease-out forwards;
+        }
+        @keyframes PopUp {
+            from { transform: translateY(-35px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .container { max-width: 1440px; margin: 0 auto; padding: 0 20px; }
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 32px; font-weight: bold; letter-spacing: -1px; }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav a {
+            text-decoration: none;
+            color: #111;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: #757575; }
+        nav a.active { border-bottom: 2px solid #111; }
+        .page-title { font-size: 32px; font-weight: 500; margin: 40px 0 10px; }
+        .page-subtitle { color: #757575; font-size: 16px; margin-bottom: 40px; }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .product-card { cursor: pointer; transition: transform 0.2s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: #f5f5f5;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #999;
+            border-radius: 4px;
+        }
+        .product-badge {
+            display: inline-block;
+            color: #0066cc;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .product-name { font-size: 16px; font-weight: 600; margin-bottom: 5px; color: #111; }
+        .product-category { font-size: 15px; color: #757575; margin-bottom: 5px; }
+        .product-colors { display: flex; gap: 5px; margin-bottom: 10px; align-items: center; }
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #e5e5e5;
+        }
+        .color-count { font-size: 13px; color: #757575; margin-left: 5px; }
+        .product-price { font-size: 16px; font-weight: 500; color: #111; }
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">FlyStep</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">男款</a></li>
+                        <li><a href="women.html">女款</a></li>
+                        <li><a href="new-arrivals.html" class="active">新品</a></li>
+                        <li><a href="sale.html">特惠</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">2025新品上市</h1>
+        <p class="page-subtitle">最新发布的跑鞋产品 - 24款精选</p>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 刚到货</span>
+                <h3 class="product-name">Saucony Endorphin Elite 2</h3>
+                <p class="product-category">男士顶级竞速 - incrediRun泡棉</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ff1493;"></span>
+                    <span class="color-dot" style="background-color: #000;"></span>
+                </div>
+                <p class="product-price">$275</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 刚到货</span>
+                <h3 class="product-name">Brooks Hyperion Elite 5</h3>
+                <p class="product-category">男士马拉松竞速 - 6.9oz</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #4169e1;"></span>
+                    <span class="color-dot" style="background-color: #ff6347;"></span>
+                </div>
+                <p class="product-price">$275</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 本月发布</span>
+                <h3 class="product-name">Nike Vomero 18</h3>
+                <p class="product-category">男士最大缓震 - 46mm堆叠</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #000;"></span>
+                    <span class="color-dot" style="background-color: #4169e1;"></span>
+                </div>
+                <p class="product-price">$155</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 本月发布</span>
+                <h3 class="product-name">Nike Vomero Plus</h3>
+                <p class="product-category">男士超级缓震</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #4169e1;"></span>
+                    <span class="color-dot" style="background-color: #000;"></span>
+                </div>
+                <p class="product-price">$180</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 刚到货</span>
+                <h3 class="product-name">ASICS Gel-Nimbus 27</h3>
+                <p class="product-category">男士顶级缓震 - 1月10日发布</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #4169e1;"></span>
+                    <span class="color-dot" style="background-color: #000;"></span>
+                </div>
+                <p class="product-price">$165</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 刚到货</span>
+                <h3 class="product-name">ASICS Novablast 5</h3>
+                <p class="product-category">男士多功能 - FF BLAST MAX</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ff6b6b;"></span>
+                    <span class="color-dot" style="background-color: #000;"></span>
+                </div>
+                <p class="product-price">$140</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 本月发布</span>
+                <h3 class="product-name">Brooks Glycerin Max</h3>
+                <p class="product-category">男士超级缓震 - DNA Tuned</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #808080;"></span>
+                    <span class="color-dot" style="background-color: #000;"></span>
+                </div>
+                <p class="product-price">$180</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 本月发布</span>
+                <h3 class="product-name">Saucony Triumph 23</h3>
+                <p class="product-category">男士高缓震 - PWRRUN PB</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #4169e1;"></span>
+                    <span class="color-dot" style="background-color: #ff6347;"></span>
+                </div>
+                <p class="product-price">$160</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 即将发布</span>
+                <h3 class="product-name">ASICS Metaspeed Sky Tokyo</h3>
+                <p class="product-category">男士竞速 - FlyteFoam Leap</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ff6347;"></span>
+                    <span class="color-dot" style="background-color: #4169e1;"></span>
+                </div>
+                <p class="product-price">$275</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 本月发布</span>
+                <h3 class="product-name">Puma Velocity Nitro 4</h3>
+                <p class="product-category">男士多功能 - 100% Nitro</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #00ff00;"></span>
+                    <span class="color-dot" style="background-color: #fff;"></span>
+                </div>
+                <p class="product-price">$130</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 刚到货</span>
+                <h3 class="product-name">Adidas Adios Pro 4</h3>
+                <p class="product-category">男士马拉松竞速</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ff1493;"></span>
+                    <span class="color-dot" style="background-color: #9370db;"></span>
+                </div>
+                <p class="product-price">$250</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 刚到货</span>
+                <h3 class="product-name">Nike Streakfly 2</h3>
+                <p class="product-category">男士超轻竞速 - 128g</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ffeb3b;"></span>
+                    <span class="color-dot" style="background-color: #000;"></span>
+                </div>
+                <p class="product-price">$160</p>
+            </div>
+
+            <!-- Women's New Arrivals -->
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 女款</span>
+                <h3 class="product-name">Nike Vomero 18</h3>
+                <p class="product-category">女士最大缓震</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ff69b4;"></span>
+                    <span class="color-dot" style="background-color: #87ceeb;"></span>
+                </div>
+                <p class="product-price">$155</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 女款</span>
+                <h3 class="product-name">Saucony Endorphin Elite 2</h3>
+                <p class="product-category">女士顶级竞速</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ff1493;"></span>
+                    <span class="color-dot" style="background-color: #fff;"></span>
+                </div>
+                <p class="product-price">$275</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 女款</span>
+                <h3 class="product-name">Brooks Hyperion Elite 5</h3>
+                <p class="product-category">女士马拉松竞速</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ff69b4;"></span>
+                    <span class="color-dot" style="background-color: #00bfff;"></span>
+                </div>
+                <p class="product-price">$275</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">产品图片</div>
+                <span class="product-badge">New - 女款</span>
+                <h3 class="product-name">Brooks Glycerin Max</h3>
+                <p class="product-category">女士超级缓震</p>
+                <div class="product-colors">
+                    <span class="color-dot" style="background-color: #ff69b4;"></span>
+                    <span class="color-dot" style="background-color: #87ceeb;"></span>
+                </div>
+                <p class="product-price">$180</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlyStep - 专业跑鞋商城</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #ffffff;
+            color: #111;
+            animation: PopUp 1.6s ease-out forwards;
+        }
+
+        @keyframes PopUp {
+            from {
+                transform: translateY(-35px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #111;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #757575;
+        }
+
+        nav a.active {
+            border-bottom: 2px solid #111;
+        }
+
+        .main-content {
+            display: flex;
+            margin-top: 40px;
+            gap: 30px;
+        }
+
+        .sidebar {
+            width: 260px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 100px;
+            align-self: flex-start;
+        }
+
+        .filter-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .filter-option {
+            padding: 8px 0;
+            cursor: pointer;
+            font-size: 15px;
+            color: #111;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .filter-option:hover {
+            color: #757575;
+        }
+
+        .products-section {
+            flex: 1;
+        }
+
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-top: 20px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .category-subtitle {
+            color: #757575;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .products-count {
+            color: #757575;
+            font-size: 16px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .product-card {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: #f5f5f5;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #999;
+            border-radius: 4px;
+        }
+
+        .product-badge {
+            display: inline-block;
+            color: #d43f21;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .product-badge.new {
+            color: #0066cc;
+        }
+
+        .product-badge.sale {
+            color: #c41e3a;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #111;
+        }
+
+        .product-category {
+            font-size: 15px;
+            color: #757575;
+            margin-bottom: 5px;
+        }
+
+        .product-colors {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #e5e5e5;
+        }
+
+        .color-count {
+            font-size: 13px;
+            color: #757575;
+            margin-left: 5px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: 500;
+            color: #111;
+        }
+
+        .product-price.sale {
+            color: #c41e3a;
+        }
+
+        .product-price .original-price {
+            text-decoration: line-through;
+            color: #757575;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">FlyStep</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="active">男款</a></li>
+                        <li><a href="women.html">女款</a></li>
+                        <li><a href="new-arrivals.html">新品</a></li>
+                        <li><a href="sale.html">特惠</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <aside class="sidebar">
+                <div class="filter-section">
+                    <div class="filter-title">运动类型</div>
+                    <a href="#daily-commute" class="filter-option">日常通勤</a>
+                    <a href="#easy-run" class="filter-option">轻松慢跑</a>
+                    <a href="#speed-training" class="filter-option">竞速训练</a>
+                    <a href="#road-racing" class="filter-option">公路竞速</a>
+                    <a href="#track-training" class="filter-option">场地训练</a>
+                    <a href="#track-racing" class="filter-option">场地竞速</a>
+                    <a href="#trail-running" class="filter-option">越野跑步</a>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-title">品牌</div>
+                    <div class="filter-option">Nike</div>
+                    <div class="filter-option">Adidas</div>
+                    <div class="filter-option">New Balance</div>
+                    <div class="filter-option">ASICS</div>
+                    <div class="filter-option">Brooks</div>
+                    <div class="filter-option">Saucony</div>
+                    <div class="filter-option">Puma</div>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-title">价格区间</div>
+                    <div class="filter-option">$0 - $100</div>
+                    <div class="filter-option">$100 - $150</div>
+                    <div class="filter-option">$150 - $200</div>
+                    <div class="filter-option">$200+</div>
+                </div>
+            </aside>
+
+            <main class="products-section">
+                <!-- Daily Commute Section -->
+                <section id="daily-commute" class="category-section">
+                    <div class="category-header">
+                        <div>
+                            <h2 class="category-title">日常通勤 <span class="products-count">(9)</span></h2>
+                            <p class="category-subtitle">舒适、耐用，适合日常穿着和轻度活动</p>
+                        </div>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge">Best Seller</span>
+                            <h3 class="product-name">Nike Pegasus 41</h3>
+                            <p class="product-category">男士日常训练鞋</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #2c5f8d;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #808080;"></span>
+                                <span class="color-count">+12</span>
+                            </div>
+                            <p class="product-price">$145</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Brooks Ghost 17</h3>
+                            <p class="product-category">男士中立训练鞋 - 碳中和</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #808080;"></span>
+                            </div>
+                            <p class="product-price">$150</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge">Best Seller</span>
+                            <h3 class="product-name">ASICS Novablast 5</h3>
+                            <p class="product-category">男士多功能训练 - 2025年度奖</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #ff6b6b;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                            </div>
+                            <p class="product-price">$140</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">New Balance 880 v15</h3>
+                            <p class="product-category">男士中立训练 - 2025年度奖</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #fff;"></span>
+                                <span class="color-dot" style="background-color: #1e90ff;"></span>
+                            </div>
+                            <p class="product-price">$140</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Adidas Ultraboost 5</h3>
+                            <p class="product-category">男士经典舒适鞋</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #fff;"></span>
+                                <span class="color-dot" style="background-color: #808080;"></span>
+                            </div>
+                            <p class="product-price">$180</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Saucony Ride 18</h3>
+                            <p class="product-category">男士多功能训练鞋</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$140</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Puma Velocity Nitro 4</h3>
+                            <p class="product-category">男士多功能训练 - 223g</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #00ff00;"></span>
+                                <span class="color-dot" style="background-color: #fff;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                            </div>
+                            <p class="product-price">$130</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Nike Structure 26</h3>
+                            <p class="product-category">男士稳定支撑鞋</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #808080;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$130</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Brooks Adrenaline GTS 24</h3>
+                            <p class="product-category">男士稳定支撑训练</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                            </div>
+                            <p class="product-price">$150</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Easy Run Section -->
+                <section id="easy-run" class="category-section">
+                    <div class="category-header">
+                        <div>
+                            <h2 class="category-title">轻松慢跑 <span class="products-count">(9)</span></h2>
+                            <p class="category-subtitle">缓震充足，适合慢速长距离训练</p>
+                        </div>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge new">New</span>
+                            <h3 class="product-name">Nike Vomero 18</h3>
+                            <p class="product-category">男士最大缓震 - 46mm堆叠</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                            </div>
+                            <p class="product-price">$155</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge">Best Seller</span>
+                            <h3 class="product-name">ASICS Gel-Nimbus 27</h3>
+                            <p class="product-category">男士顶级缓震 - 42mm堆叠</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #ff6b6b;"></span>
+                            </div>
+                            <p class="product-price">$165</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Brooks Glycerin 22</h3>
+                            <p class="product-category">男士顶级缓震 - DNA Tuned</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #808080;"></span>
+                            </div>
+                            <p class="product-price">$160</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge new">New</span>
+                            <h3 class="product-name">Brooks Glycerin Max</h3>
+                            <p class="product-category">男士超级缓震恢复</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #808080;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$180</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Saucony Triumph 23</h3>
+                            <p class="product-category">男士高缓震训练 - PWRRUN PB</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                            </div>
+                            <p class="product-price">$160</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">New Balance 1080 v14</h3>
+                            <p class="product-category">男士高缓震 - 37mm堆叠</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                            </div>
+                            <p class="product-price">$165</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Nike Infinity Run 5</h3>
+                            <p class="product-category">男士缓震训练鞋</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #fff;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$160</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">ASICS Gel-Cumulus 27</h3>
+                            <p class="product-category">男士中等缓震训练</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #808080;"></span>
+                                <span class="color-dot" style="background-color: #ff4500;"></span>
+                            </div>
+                            <p class="product-price">$140</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Puma Magmax Nitro</h3>
+                            <p class="product-category">男士最大缓震训练</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                            </div>
+                            <p class="product-price">$160</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Speed Training Section -->
+                <section id="speed-training" class="category-section">
+                    <div class="category-header">
+                        <div>
+                            <h2 class="category-title">竞速训练 <span class="products-count">(9)</span></h2>
+                            <p class="category-subtitle">轻量响应，适合速度训练和节奏跑</p>
+                        </div>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge">2025 Best</span>
+                            <h3 class="product-name">Adidas Evo SL</h3>
+                            <p class="product-category">男士多功能速度 - 223g</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #fff;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                                <span class="color-count">+6</span>
+                            </div>
+                            <p class="product-price">$150</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge">Best Seller</span>
+                            <h3 class="product-name">Saucony Endorphin Speed 5</h3>
+                            <p class="product-category">男士速度训练 - 尼龙板</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$170</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">ASICS Magic Speed 4</h3>
+                            <p class="product-category">男士速度训练 - 碳板</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #00ff00;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$170</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Puma Deviate Nitro 3</h3>
+                            <p class="product-category">男士碳板训练 - 270g</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                            </div>
+                            <p class="product-price">$170</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Nike Zoom Fly 6</h3>
+                            <p class="product-category">男士速度训练鞋</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #ff1493;"></span>
+                                <span class="color-dot" style="background-color: #00bfff;"></span>
+                            </div>
+                            <p class="product-price">$180</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Adidas Boston 13</h3>
+                            <p class="product-category">男士马拉松训练</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #ff4500;"></span>
+                            </div>
+                            <p class="product-price">$160</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Brooks Launch 11</h3>
+                            <p class="product-category">男士速度训练 - DNA Flash</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                            </div>
+                            <p class="product-price">$120</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Saucony Kinvara 16</h3>
+                            <p class="product-category">男士轻量训练 - 经典款</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$130</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Nike Streakfly 2</h3>
+                            <p class="product-category">男士超轻竞速 - 128g</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #ffeb3b;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$160</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Road Racing Section -->
+                <section id="road-racing" class="category-section">
+                    <div class="category-header">
+                        <div>
+                            <h2 class="category-title">公路竞速 <span class="products-count">(9)</span></h2>
+                            <p class="category-subtitle">碳板竞速鞋，马拉松比赛用</p>
+                        </div>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge">Best Seller</span>
+                            <h3 class="product-name">Nike Alphafly 3</h3>
+                            <p class="product-category">男士顶级马拉松竞速</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #00a8e1;"></span>
+                                <span class="color-dot" style="background-color: #ff6b9d;"></span>
+                                <span class="color-count">+2</span>
+                            </div>
+                            <p class="product-price">$295</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge new">New</span>
+                            <h3 class="product-name">Saucony Endorphin Elite 2</h3>
+                            <p class="product-category">男士顶级竞速 - incrediRun</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #ff1493;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$275</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge new">New</span>
+                            <h3 class="product-name">Brooks Hyperion Elite 5</h3>
+                            <p class="product-category">男士马拉松竞速 - 6.9oz</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                            </div>
+                            <p class="product-price">$275</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">ASICS Metaspeed Sky Paris</h3>
+                            <p class="product-category">男士马拉松竞速</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                                <span class="color-dot" style="background-color: #4169e1;"></span>
+                            </div>
+                            <p class="product-price">$275</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Nike Vaporfly 4</h3>
+                            <p class="product-category">男士经典马拉松竞速</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #ffc0cb;"></span>
+                                <span class="color-dot" style="background-color: #ff69b4;"></span>
+                                <span class="color-count">+4</span>
+                            </div>
+                            <p class="product-price">$270</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Saucony Endorphin Pro 4</h3>
+                            <p class="product-category">男士马拉松竞速</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #00ff00;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$250</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Adidas Adios Pro 4</h3>
+                            <p class="product-category">男士马拉松竞速</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #ff1493;"></span>
+                                <span class="color-dot" style="background-color: #9370db;"></span>
+                            </div>
+                            <p class="product-price">$250</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Puma Fast-R Nitro Elite 3</h3>
+                            <p class="product-category">男士马拉松竞速</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #000;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                            </div>
+                            <p class="product-price">$250</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">New Balance SC Elite v5</h3>
+                            <p class="product-category">男士马拉松竞速</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #4caf50;"></span>
+                                <span class="color-dot" style="background-color: #ff5722;"></span>
+                            </div>
+                            <p class="product-price">$250</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Trail Running Section -->
+                <section id="trail-running" class="category-section">
+                    <div class="category-header">
+                        <div>
+                            <h2 class="category-title">越野跑步 <span class="products-count">(6)</span></h2>
+                            <p class="category-subtitle">越野地形专用</p>
+                        </div>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Nike Pegasus Trail 5</h3>
+                            <p class="product-category">男士全地形越野</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #228b22;"></span>
+                                <span class="color-dot" style="background-color: #000;"></span>
+                            </div>
+                            <p class="product-price">$140</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <span class="product-badge">Best Seller</span>
+                            <h3 class="product-name">Brooks Cascadia 19</h3>
+                            <p class="product-category">男士全能越野训练</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #556b2f;"></span>
+                                <span class="color-dot" style="background-color: #ff6347;"></span>
+                            </div>
+                            <p class="product-price">$140</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">ASICS Trabuco 13</h3>
+                            <p class="product-category">男士高缓震越野</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #2e8b57;"></span>
+                                <span class="color-dot" style="background-color: #ffa500;"></span>
+                            </div>
+                            <p class="product-price">$150</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Nike Zegama Trail 2</h3>
+                            <p class="product-category">男士越野竞速</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #8b4513;"></span>
+                                <span class="color-dot" style="background-color: #d2691e;"></span>
+                            </div>
+                            <p class="product-price">$160</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">New Balance Hierro v9</h3>
+                            <p class="product-category">男士高缓震越野 - Vibram</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #696969;"></span>
+                                <span class="color-dot" style="background-color: #ff4500;"></span>
+                            </div>
+                            <p class="product-price">$145</p>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">产品图片</div>
+                            <h3 class="product-name">Adidas Terrex Agravic 3</h3>
+                            <p class="product-category">男士全能越野训练</p>
+                            <div class="product-colors">
+                                <span class="color-dot" style="background-color: #556b2f;"></span>
+                                <span class="color-dot" style="background-color: #808080;"></span>
+                            </div>
+                            <p class="product-price">$130</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
